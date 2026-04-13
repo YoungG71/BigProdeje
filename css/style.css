@@ -29,6 +29,44 @@
     --spacing-md: 2rem;
     --spacing-lg: 4rem;
     --spacing-xl: 8rem;
+}
+
+/* UNIVERSAL SLIM HEADER - GLOBAL CSS */
+header, .navbar {
+    display: flex !important;
+    align-items: center !important; /* Vertical center */
+    height: 60px !important;
+    padding: 0 40px !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+}
+
+.nav-container, .container-fluid, .container, .navbar .container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+}
+
+.nav-link, .navbar-brand, .logo, .nav-links a {
+    margin: 0 !important;
+    padding: 0 15px !important;
+    display: flex !important;
+    align-items: center !important;
+    height: auto !important;
+    line-height: normal !important;
+}
+
+/* UNIFIED PAGE SPACING - GLOBAL */
+main, .main-content, section:first-of-type {
+    margin-top: 60px !important; /* The height of the header */
+    padding-top: 20px !important;
+}
     
     /* Typography */
     --font-heading: 'Archivo Black', sans-serif;
@@ -79,7 +117,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 11, 30, 0.85);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: -1;
 }
 
@@ -124,23 +162,18 @@ p {
    NAVIGATION
    ============================================ */
 
-.navbar {
+.navbar, header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
-    padding: var(--spacing-sm) 0;
     background: transparent !important;
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.navbar .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+/* .navbar .container rule removed - replaced by global .container rule with !important */
 
 .logo {
     font-family: var(--font-heading);
@@ -155,6 +188,7 @@ p {
 .nav-links {
     display: flex;
     gap: var(--spacing-md);
+    align-items: center;
 }
 
 .nav-links a {
@@ -201,12 +235,13 @@ p {
    ============================================ */
 
 .hero {
-    min-height: 100vh;
+    min-height: 200px;
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
-    padding-top: 80px;
+    padding-top: 20px;
+    margin-top: 0;
 }
 
 .hero-overlay {
@@ -215,25 +250,47 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 11, 30, 0.4);
-    backdrop-filter: blur(2px);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(1px);
     z-index: -1;
 }
 
+.smoke-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.5;
+}
+
 .hero .container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 
 .hero-content {
     animation: fadeInUp 1s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.hero-photo {
+    position: relative;
+    z-index: 2;
 }
 
 .hero-title {
     margin-bottom: var(--spacing-sm);
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    text-shadow: 
+        2px 2px 10px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 150, 255, 0.3),
+        0 0 40px rgba(0, 150, 255, 0.2);
 }
 
 .title-line {
@@ -246,7 +303,10 @@ p {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+    text-shadow: 
+        2px 2px 10px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 150, 255, 0.3),
+        0 0 40px rgba(0, 150, 255, 0.2);
 }
 
 .title-line:first-child {
@@ -331,52 +391,7 @@ p {
     transform: translateY(-2px);
 }
 
-.hero-image {
-    position: relative;
-    animation: float 6s ease-in-out infinite;
-}
 
-.portrait-frame {
-    position: relative;
-    width: 400px;
-    height: 500px;
-    margin: 0 auto;
-}
-
-.portrait-placeholder {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-dark) 100%);
-    border-radius: var(--radius-xl);
-    position: relative;
-    overflow: hidden;
-}
-
-.portrait-placeholder::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-    background: var(--primary-accent);
-    border-radius: 50%;
-    opacity: 0.1;
-}
-
-.portrait-glow {
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(45deg, var(--primary-accent), var(--silver-primary));
-    border-radius: calc(var(--radius-xl) + 10px);
-    z-index: -1;
-    opacity: 0.5;
-    filter: blur(20px);
-}
 
 .scroll-indicator {
     position: absolute;
@@ -389,6 +404,56 @@ p {
 .scroll-indicator i {
     font-size: 1.5rem;
     color: var(--silver-primary);
+}
+
+/* ============================================
+   HERO CONTAINER & PHOTO
+   ============================================ */
+
+.hero-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 50px !important;
+    padding: 40px !important;
+    max-width: 1300px !important;
+    margin: 0 auto !important;
+    width: 100%;
+}
+
+.hero-photo img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    border-radius: 20px;
+    filter: drop-shadow(0 0 25px rgba(0, 150, 255, 0.4));
+    max-height: 500px;
+    display: block;
+    border: 2px solid rgba(0, 150, 255, 0.5);
+    box-shadow: 0 0 20px rgba(0, 150, 255, 0.4), inset 0 0 15px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.hero-photo img:hover {
+    filter: drop-shadow(0 0 35px rgba(0, 150, 255, 0.8));
+    transform: scale(1.05);
+    border: 2px solid rgba(0, 200, 255, 0.7);
+    box-shadow: 0 0 30px rgba(0, 150, 255, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+    .hero-container {
+        flex-direction: column !important;
+        gap: 30px !important;
+        padding: 20px !important;
+    }
+    
+    .hero-photo img {
+        max-height: 400px;
+        width: auto !important;
+        max-width: 100%;
+    }
 }
 
 /* ============================================
@@ -408,6 +473,7 @@ p {
 
 .section-title {
     color: var(--text-primary);
+    margin-top: 0 !important;
     margin-bottom: var(--spacing-sm);
     font-family: var(--font-heading);
     font-weight: 900;
@@ -430,34 +496,29 @@ p {
 }
 
 .video-container {
+    background: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: none !important;
+    transition: none !important;
     max-width: 900px;
     margin: 0 auto;
 }
 
+.video-container:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
 .video-frame {
     position: relative;
-    padding: 20px;
-    background: linear-gradient(135deg, var(--silver-primary), #A0A0A0);
-    border-radius: var(--radius-lg);
-    box-shadow: 
-        0 20px 40px rgba(0, 0, 0, 0.3),
-        0 0 60px rgba(192, 192, 192, 0.2),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    animation: chromeGlow 3s ease-in-out infinite alternate;
 }
 
 .video-border {
     position: relative;
-    padding: 4px;
-    background: linear-gradient(45deg, 
-        var(--silver-primary) 0%,
-        #FFFFFF 25%,
-        var(--silver-primary) 50%,
-        #E8E8E8 75%,
-        var(--silver-primary) 100%);
-    border-radius: calc(var(--radius-lg) - 4px);
-    background-size: 200% 200%;
-    animation: chromeShift 4s linear infinite;
 }
 
 .video-wrapper {
@@ -465,7 +526,12 @@ p {
     padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
-    border-radius: calc(var(--radius-lg) - 8px);
+    border-radius: 12px;
+    background: none !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    display: flex;
+    justify-content: center;
 }
 
 .video-wrapper iframe {
@@ -474,7 +540,9 @@ p {
     left: 0;
     width: 100%;
     height: 100%;
-    border: none;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 100, 255, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .video-info {
@@ -492,17 +560,7 @@ p {
     margin-bottom: var(--spacing-sm);
 }
 
-.video-stats {
-    display: flex;
-    justify-content: center;
-    gap: var(--spacing-md);
-    color: var(--silver-primary);
-}
 
-.video-stats i {
-    margin-right: 0.5rem;
-    color: var(--primary-accent);
-}
 
 /* ============================================
    DISCOGRAPHY
@@ -711,8 +769,9 @@ p {
    ============================================ */
 
 .discography-section {
+    margin-top: 0 !important;
     margin-bottom: var(--spacing-xl);
-    padding: var(--spacing-lg) 0 !important;
+    padding-top: 20px !important;
     padding-bottom: var(--spacing-xl) 0 !important;
     border-bottom: none !important;
     background: transparent !important;
@@ -771,10 +830,9 @@ p {
 }
 
 .bio-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
-    align-items: center;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
 }
 
 .bio-text h3 {
@@ -933,6 +991,16 @@ p {
     margin-top: var(--spacing-xs);
 }
 
+.designer-credit a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.designer-credit a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
 /* ============================================
    ANIMATIONS
    ============================================ */
@@ -1049,10 +1117,7 @@ p {
         height: 400px;
     }
     
-    .bio-content {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
-    }
+
     
     .bio-highlights {
         justify-content: center;
@@ -1083,11 +1148,6 @@ p {
     .portrait-frame {
         width: 250px;
         height: 350px;
-    }
-    
-    .video-stats {
-        flex-direction: column;
-        gap: var(--spacing-sm);
     }
     
     .footer-social {
@@ -1211,16 +1271,15 @@ p {
 
 /* Page Hero */
 .page-hero {
-    min-height: 60vh;
+    min-height: 150px !important;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: var(--spacing-xl) 0;
-    background: rgba(0, 11, 30, 0.5) !important;
-    backdrop-filter: blur(15px) !important;
-    -webkit-backdrop-filter: blur(15px) !important;
+    padding: 0 !important;
+    padding-top: 20px !important; /* From global rule */
+    background: transparent !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -1255,11 +1314,50 @@ p {
     position: relative;
 }
 
+.bio-container {
+    max-width: 850px !important;
+    margin: 50px auto !important;
+    padding: 40px !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(0, 150, 255, 0.2) !important;
+    color: white !important;
+}
+
+.bio-container h1,
+.bio-container h2,
+.bio-container h3,
+.bio-container .section-title {
+    text-align: center;
+}
+
+.bio-container p {
+    text-align: justify;
+}
+
 .biography-page .bio-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--spacing-xl);
-    align-items: start;
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+/* Nuclear CSS for centering - applied per user request */
+.biography-page, #bio-page {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.bio-container {
+    max-width: 800px !important;
+    margin: 0 auto !important;
+    float: none !important;
+    display: inline-block !important;
+    text-align: left !important;
+    padding: 40px !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    border-radius: 15px !important;
 }
 
 /* Magazine Header */
@@ -1370,14 +1468,6 @@ p {
     display: flex;
     align-items: flex-start;
     gap: var(--spacing-sm);
-    padding: 0 !important;
-    background: transparent !important;
-    border-radius: 0 !important;
-    transition: none !important;
-}
-
-.highlight-card:hover {
-    transform: translateY(-3px);
 }
 
 .highlight-icon {
@@ -1539,7 +1629,7 @@ p {
 
 /* Discography Page */
 .discography-page {
-    padding: var(--spacing-xl) 0;
+    padding: 20px 0 !important;
 }
 
 .discography-page .albums-grid {
@@ -1595,18 +1685,19 @@ p {
 }
 
 .solo-album-card {
-    background: transparent !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    backdrop-filter: none !important;
-    transition: none !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .solo-album-card:hover {
-    transform: none !important;
-    box-shadow: none !important;
-    border-color: transparent !important;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .solo-album-header {
@@ -1764,18 +1855,19 @@ p {
 }
 
 .single-latest-card {
-    background: transparent !important;
-    border-radius: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-    backdrop-filter: none !important;
-    transition: none !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .single-latest-card:hover {
-    transform: none !important;
-    box-shadow: none !important;
-    border-color: transparent !important;
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .single-latest-header {
@@ -1893,17 +1985,9 @@ p {
 
 /* Spotify Player Styles */
 .spotify-player {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    transition: box-shadow 0.3s ease;
     position: relative;
     min-height: 352px;
-    background: transparent;
-}
-
-.spotify-player:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
 .spotify-player iframe {
@@ -2174,10 +2258,7 @@ p {
         font-size: 1.2rem;
     }
     
-    .biography-page .bio-content {
-        grid-template-columns: 1fr;
-        gap: var(--spacing-lg);
-    }
+
     
     .contact-content {
         grid-template-columns: 1fr;
@@ -2269,7 +2350,11 @@ p {
 header, nav, section.page-title, .hero-section, .page-header, [class*='header'], [class*='hero'] {
     background: transparent !important;
     background-color: transparent !important;
+    padding-top: 20px !important;
+    margin-top: 0 !important;
 }
+
+
 
 /* REMOVE WRAPPERS - Force transparency on main containers */
 main, .main-container, .app-container, .content-wrapper, .page-wrapper,
@@ -2299,6 +2384,8 @@ section:not(.discography-section):not(.magazine-section):not(.contact-section),
     box-shadow: none !important;
     border: none !important;
     border-radius: 0 !important;
+    padding-top: 20px !important;
+    margin-top: 0 !important;
 }
 
 /* Exclude Spotify players from the cleanup */
@@ -2352,3 +2439,129 @@ h3.silver-title, .silver-title,
 p, span, li, .text-body, .content-text {
     text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
 }
+
+/* =========================================== */
+/* GLASSMORPHISM STYLES FOR MEDIA PLAYERS */
+/* =========================================== */
+
+/* Spotify Players - Glassmorphism Default State */
+.spotify-player {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* Spotify Players - Glassmorphism Hover Effect */
+.spotify-player:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* YouTube Video Container - Glassmorphism Default State */
+.video-frame {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+/* YouTube Video Container - Glassmorphism Hover Effect */
+.video-frame:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Highlight Cards (Murder Squad) - Glassmorphism Default State */
+.highlight-card {
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    padding: var(--spacing-sm) !important;
+    transition: all 0.3s ease;
+}
+
+/* Highlight Cards (Murder Squad) - Glassmorphism Hover Effect */
+.highlight-card:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Ensure iframes inside glass containers maintain proper display */
+.spotify-player iframe {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.video-wrapper iframe {
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+/* ============================================
+   EMERGENCY RESET - Clean Standard Flow
+   ============================================ */
+
+/* Remove all problematic positioning from sections and containers */
+section,
+.section,
+.page-hero,
+.solo-catalog-section,
+.discography-page,
+.bio-page,
+.contact-page,
+.container,
+.main-content,
+.content-wrapper {
+    position: static !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+    display: block !important;
+}
+
+/* Ensure natural vertical flow with proper spacing */
+main,
+.main-content,
+section {
+    display: block !important;
+    margin-top: 0 !important;
+    padding: 40px 0 !important;
+}
+
+/* First section after header must have margin-top to clear fixed header */
+main > section:first-child,
+.main-content > section:first-child,
+.page-hero {
+    margin-top: 60px !important;
+    padding-top: 20px !important;
+}
+
+
+
+/* Ensure header remains fixed */
+header, .navbar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+}
+
+/* Reset any transform overlaps */
+* {
+    transform-box: border-box !important;
+}
+
