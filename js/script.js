@@ -160,32 +160,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // ============================================
-    // SOCIAL MEDIA INTERACTIONS
-    // ============================================
-    
-    const socialIcons = document.querySelectorAll('.social-icon');
-    
-    socialIcons.forEach(icon => {
-        icon.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const platform = this.querySelector('i').className.split(' ')[1].replace('fa-', '');
-            const platforms = {
-                'spotify': 'Spotify',
-                'youtube': 'YouTube',
-                'instagram': 'Instagram',
-                'twitter': 'Twitter',
-                'apple': 'Apple Music'
-            };
-            
-            showNotification(`Ouverture de ${platforms[platform] || platform}...`);
-            
-            // In a real implementation, this would redirect to the actual social media page
-            // window.open(socialLinks[platform], '_blank');
-        });
-    });
-    
-    // ============================================
     // UTILITY FUNCTIONS
     // ============================================
     
