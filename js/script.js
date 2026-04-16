@@ -413,3 +413,37 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('%cSite développé par Young G West Coast', 'color: #C0C0C0; font-size: 14px;');
     console.log('%cSouth Central LA • West Coast Forever', 'color: #B0B8D0; font-size: 12px;');
 });
+
+/* ==========================================
+   🔌 SCRIPT D'ACTIVATION DU MENU MOBILE
+   ========================================== */
+
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. On cible le bouton hamburger et le menu
+    const hamburger = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.nav-links');
+
+    // 2. Vérification de sécurité (au cas où le menu n'existe pas sur une page)
+    if (hamburger && menu) {
+        
+        // 3. Gestion du clic ou du "touch" sur mobile
+        ['click', 'touchstart'].forEach(function(eventType) {
+            hamburger.addEventListener(eventType, function(event) {
+                // On empêche les autres scripts de bloquer l'action
+                event.preventDefault(); 
+                event.stopPropagation();
+                
+                // MAGIE : On ajoute ou on retire la classe "active"
+                menu.classList.toggle('active');
+            }, { passive: false });
+        });
+
+        // 4. (Optionnel) Fermer le menu si on clique sur un des liens
+        const links = menu.querySelectorAll('a');
+        links.forEach(function(link) {
+            link.addEventListener('click', function() {
+                menu.classList.remove('active');
+            });
+        });
+    }
+});
