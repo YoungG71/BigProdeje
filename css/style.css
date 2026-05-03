@@ -3523,29 +3523,55 @@ header, .navbar {
  } 
  
  @media (max-width: 768px) { 
+     /* On s'assure que le header est la base de référence */ 
+     header, .navbar { 
+         position: relative !important; 
+     } 
+ 
+     /* Le nouveau menu stylé */ 
      .nav-links.active, 
      header .nav-links.active, 
      .navbar .nav-links.active { 
-         background-color: #00050b !important; 
-         background: #00050b !important; 
          position: absolute !important; 
-         top: 55px !important; 
+         top: 100% !important; /* S'accroche pile au bas du header, AUCUN espace */ 
          left: 0 !important; 
          width: 100% !important; 
-         height: calc(100vh - 55px) !important; /* Prend tout le reste de l'écran */ 
-         z-index: 999999 !important; /* Priorité maximale */ 
+         height: auto !important; /* S'adapte au contenu, plus joli que le plein écran */ 
+         
+         /* Le style "Verre Fumé & Néon" */ 
+         background: rgba(0, 5, 11, 0.95) !important; 
+         backdrop-filter: blur(10px) !important; 
+         border-top: 1px solid rgba(30, 144, 255, 0.4) !important; 
+         border-bottom: 3px solid rgba(30, 144, 255, 0.8) !important; 
+         box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9) !important; 
+         
+         z-index: 999999 !important; 
          display: flex !important; 
          flex-direction: column !important; 
-         justify-content: flex-start !important; 
-         padding-top: 40px !important; 
+         padding: 20px 0 !important; 
+         gap: 10px !important; 
      } 
      
+     /* Des liens beaucoup plus classes */ 
      .nav-links.active a { 
          color: #ffffff !important; 
-         font-size: 1.5rem !important; 
-         padding: 20px 0 !important; 
+         font-family: 'Oswald', sans-serif !important; /* Typo agressive */ 
+         font-size: 1.4rem !important; 
+         text-transform: uppercase !important; 
+         letter-spacing: 4px !important; 
+         padding: 15px 0 !important; 
          width: 100% !important; 
          text-align: center !important; 
          background: transparent !important; 
+         border: none !important; /* Enlève les vieilles lignes de séparation */ 
+         transition: all 0.3s ease !important; 
+     } 
+     
+     /* Effet quand on touche le lien sur l'écran */ 
+     .nav-links.active a:active, 
+     .nav-links.active a:hover { 
+         color: #1E90FF !important; 
+         text-shadow: 0 0 15px rgba(30, 144, 255, 0.8) !important; 
+         background: rgba(30, 144, 255, 0.05) !important; 
      } 
  }
