@@ -3392,12 +3392,12 @@ header, .navbar {
  } 
  
  .pro-neon-text { 
-     font-family: 'Oswald', sans-serif; 
-     font-weight: 300; 
+     font-family: 'Tilt Neon', sans-serif !important; 
+     font-weight: 400 !important; /* Tilt Neon est optimisée pour ce poids */ 
      font-size: clamp(2rem, 6vw, 4.5rem); 
      color: #e0f2fe; 
      text-transform: uppercase; 
-     letter-spacing: 10px; 
+     letter-spacing: 8px !important; /* Un peu moins espacé pour que les courbes respirent bien */ 
      text-align: center; 
      margin: 0; 
      
@@ -3574,4 +3574,149 @@ header, .navbar {
          text-shadow: 0 0 15px rgba(30, 144, 255, 0.8) !important; 
          background: rgba(30, 144, 255, 0.05) !important; 
      } 
+ } 
+ 
+ /* ============================================ 
+     BOUTONS HYDRAULIQUES (LOWRIDER EFFECT) 
+     ============================================ */ 
+ 
+ /* Ajoute ces classes selon le nom de tes boutons */ 
+ .btn, .cta-button, .hero-content a { 
+     /* Le secret du rebond : la courbe cubic-bezier */ 
+     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important; 
+     display: inline-block; /* Nécessaire pour que le transform fonctionne bien */ 
+ } 
+ 
+ /* L'effet "Jump" au survol de la souris */ 
+ .btn:hover, .cta-button:hover, .hero-content a:hover { 
+     transform: translateY(-8px) scale(1.05) !important; /* Saute vers le haut */ 
+     box-shadow: 0 15px 25px rgba(30, 144, 255, 0.5) !important; /* L'ombre s'étire en dessous */ 
+ } 
+ 
+ /* L'effet "Drop" quand on clique (sur PC) ou qu'on appuie (sur Mobile) */ 
+ .btn:active, .cta-button:active, .hero-content a:active { 
+     transform: translateY(4px) scale(0.95) !important; /* S'enfonce dans le sol */ 
+     box-shadow: 0 5px 10px rgba(30, 144, 255, 0.8) !important; 
+     transition: all 0.1s ease !important; /* Très rapide à l'impact */ 
+ } 
+ 
+ /* ============================================ 
+     LIENS DU HEADER PC - EFFET NEON & SOULIGNEMENT 
+     ============================================ */ 
+ 
+ /* Uniquement pour les écrans PC (pour ne pas casser le menu mobile qu'on a fait) */ 
+ @media (min-width: 769px) { 
+     header .nav-links a, .navbar .nav-links a { 
+         /* On utilise une typo plus massive (Archivo Black ou on force le gras sur Oswald) */ 
+         font-family: 'Archivo Black', 'Oswald', sans-serif !important; 
+         font-size: 1.1rem !important; 
+         font-weight: 900 !important; /* Ultra gras pour l'impact */ 
+         font-style: italic !important; /* Incliné pour le côté dynamique/rapide */ 
+         text-transform: uppercase !important; 
+         letter-spacing: 3px !important; /* Lettres bien espacées */ 
+         color: #e2e8f0 !important; /* Blanc un peu métallique */ 
+         text-decoration: none !important; 
+         padding: 5px 10px !important; 
+         margin: 0 15px !important; 
+         position: relative !important; 
+         transition: all 0.3s ease !important; 
+         /* Une micro-ombre portée noire par défaut pour faire ressortir le texte */ 
+         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important; 
+     } 
+ 
+     /* La barre bleue cachée sous le texte */ 
+     header .nav-links a::after, .navbar .nav-links a::after { 
+         content: ''; 
+         position: absolute; 
+         width: 0; 
+         height: 2px; 
+         bottom: -2px; /* Se place juste sous le texte */ 
+         left: 50%; 
+         transform: translateX(-50%); /* Permet à la barre de s'étendre depuis le centre */ 
+         background-color: #1E90FF; 
+         box-shadow: 0 0 10px rgba(30, 144, 255, 0.8); /* Lueur de la barre */ 
+         transition: width 0.3s ease; 
+     } 
+ 
+     /* L'effet au survol de la souris */ 
+     header .nav-links a:hover, .navbar .nav-links a:hover { 
+         color: #1E90FF !important; 
+         text-shadow: 0 0 15px rgba(30, 144, 255, 0.5) !important; 
+     } 
+ 
+     /* La barre s'étire à 100% de la largeur au survol */ 
+     header .nav-links a:hover::after, .navbar .nav-links a:hover::after { 
+         width: 100%; 
+     } 
+ } 
+ 
+ /* ============================================ 
+     LOGO HEADER - EFFET NÉON "BIG PRODEJE" 
+     ============================================ */ 
+ 
+ header .logo, .navbar .navbar-brand, .logo a { 
+     font-family: 'Archivo Black', 'Oswald', sans-serif !important; 
+     font-size: 1.6rem !important; /* Un peu plus grand que les autres liens */ 
+     font-weight: 900 !important; 
+     color: #ffffff !important; 
+     text-transform: uppercase !important; 
+     letter-spacing: 4px !important; 
+     text-decoration: none !important; 
+     
+     /* L'effet Néon Bleu permanent */ 
+     text-shadow: 
+         0 0 5px rgba(255, 255, 255, 0.8), 
+         0 0 10px rgba(30, 144, 255, 0.8), 
+         0 0 20px rgba(30, 144, 255, 0.8), 
+         0 0 40px rgba(30, 144, 255, 0.6) !important; 
+         
+     transition: all 0.3s ease !important; 
+     display: inline-block !important; /* Nécessaire pour le petit zoom au survol */ 
+ } 
+ 
+ /* Le néon brille encore plus fort quand on passe la souris dessus */ 
+ header .logo:hover, .navbar .navbar-brand:hover, .logo a:hover { 
+     text-shadow: 
+         0 0 5px rgba(255, 255, 255, 1), 
+         0 0 15px rgba(30, 144, 255, 1), 
+         0 0 30px rgba(30, 144, 255, 0.9), 
+         0 0 60px rgba(30, 144, 255, 0.7) !important; 
+     transform: scale(1.05) !important; /* Petit effet de zoom */ 
+ } 
+ 
+ /* ============================================ 
+    BOUTON ACCUEIL "BIG PRODEJE" - EFFET NÉON 
+    ============================================ */ 
+ 
+ .brand-neon { 
+     font-family: 'Archivo Black', 'Oswald', sans-serif !important; 
+     font-size: 1.8rem !important; 
+     font-weight: 900 !important; 
+     color: #ffffff !important; 
+     text-transform: uppercase !important; 
+     letter-spacing: 4px !important; 
+     text-decoration: none !important; 
+     
+     /* Néon Bleu permanent */ 
+     text-shadow: 
+         0 0 5px rgba(255, 255, 255, 0.8), 
+         0 0 10px rgba(30, 144, 255, 0.8), 
+         0 0 20px rgba(30, 144, 255, 0.8), 
+         0 0 40px rgba(30, 144, 255, 0.6) !important; 
+         
+     transition: all 0.3s ease !important; 
+     display: inline-block !important; /* Pour que le survol fonctionne bien */ 
+     margin-right: auto !important; /* Pousse le reste du menu à droite si besoin */ 
+ } 
+ 
+ /* Lueur intense au survol */ 
+ .brand-neon:hover { 
+     color: #ffffff !important; 
+     text-shadow: 
+         0 0 5px rgba(255, 255, 255, 1), 
+         0 0 15px rgba(30, 144, 255, 1), 
+         0 0 30px rgba(30, 144, 255, 0.9), 
+         0 0 60px rgba(30, 144, 255, 0.7) !important; 
+     transform: scale(1.05) !important; 
  }
+ 
