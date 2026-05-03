@@ -3374,3 +3374,128 @@ header, .navbar {
         margin: 0 !important; /* On enlève les marges qui pourraient décentrer */
     }
 }
+
+/* ============================================ 
+    PRO NEON SIGN - SOUTH CENTRAL CARTEL 
+    ============================================ */ 
+ 
+ .pro-neon-container { 
+     display: flex; 
+     justify-content: center; 
+     align-items: center; 
+     /* On ajoute un gros espace en haut (100px) pour passer sous le menu */ 
+     padding: 100px 20px 20px 20px; 
+     background: transparent; 
+     width: 100%; 
+     position: relative; 
+     z-index: 10; /* Pour s'assurer qu'il passe par-dessus les autres fonds */ 
+ } 
+ 
+ .pro-neon-text { 
+     font-family: 'Oswald', sans-serif; 
+     font-weight: 300; 
+     font-size: clamp(2rem, 6vw, 4.5rem); 
+     color: #e0f2fe; 
+     text-transform: uppercase; 
+     letter-spacing: 10px; 
+     text-align: center; 
+     margin: 0; 
+     
+     text-shadow: 
+         0 0 2px rgba(255, 255, 255, 0.8), 
+         0 0 10px rgba(30, 144, 255, 0.8), 
+         0 0 20px rgba(30, 144, 255, 0.8), 
+         0 0 40px rgba(0, 100, 255, 0.9), 
+         0 0 80px rgba(0, 100, 255, 0.7), 
+         0 0 120px rgba(0, 50, 255, 0.5); 
+         
+     animation: neonFault 4s infinite alternate; 
+ } 
+ 
+ @keyframes neonFault { 
+     0%, 18%, 22%, 25%, 53%, 57%, 100% { 
+         text-shadow: 
+             0 0 2px rgba(255, 255, 255, 0.8), 
+             0 0 10px rgba(30, 144, 255, 0.8), 
+             0 0 20px rgba(30, 144, 255, 0.8), 
+             0 0 40px rgba(0, 100, 255, 0.9), 
+             0 0 80px rgba(0, 100, 255, 0.7), 
+             0 0 120px rgba(0, 50, 255, 0.5); 
+         color: #e0f2fe; 
+     } 
+     20%, 24%, 55% {        
+         text-shadow: none; 
+         color: rgba(30, 144, 255, 0.15); 
+     } 
+ } 
+ 
+ @media (max-width: 768px) { 
+     .pro-neon-text { 
+         letter-spacing: 4px; 
+         font-size: 2.2rem; 
+     } 
+ } 
+ 
+ /* ============================================ 
+     HEADER SLIM FIX - AFFINAGE DE LA BARRE DE NAV 
+     ============================================ */ 
+ 
+ /* Sur PC : On passe de 60px à 45px de hauteur */ 
+ header, .navbar { 
+     height: 45px !important; 
+ } 
+ 
+ /* On remonte un peu le néon pour compenser la barre plus fine */ 
+ .pro-neon-container { 
+     padding: 60px 20px 10px 20px !important; 
+ } 
+ 
+ /* Sur Mobile : On passe de 70px à 55px de hauteur */ 
+ @media (max-width: 768px) { 
+     header, .navbar { 
+         height: 55px !important; 
+     } 
+     
+     /* On ajuste le décalage du contenu pour qu'il ne rentre pas dans la barre */ 
+     main, .main-content, .hero { 
+         margin-top: 55px !important; 
+     } 
+     
+     .navbar .nav-links.active, header .nav-links.active { 
+         top: 55px !important; 
+     } 
+ } 
+ 
+ /* ============================================ 
+     FIX CENTRAGE VERTICAL DU HEADER 
+     ============================================ */ 
+ 
+ header, .navbar { 
+     height: 50px !important; /* Un poil plus grand pour respirer */ 
+     padding-top: 0 !important; /* C'EST ÇA QUI CAUSAIT LE BUG */ 
+     padding-bottom: 0 !important; 
+     display: flex !important; 
+     align-items: center !important; 
+ } 
+ 
+ header .container, .navbar .container, .nav-container { 
+     height: 100% !important; 
+     display: flex !important; 
+     align-items: center !important; 
+     margin: 0 auto !important; 
+ } 
+ 
+ .logo, .navbar-brand, .nav-links { 
+     margin: 0 !important; 
+     padding: 0 !important; 
+     display: flex !important; 
+     align-items: center !important; 
+     height: 100% !important; 
+ } 
+ 
+ .nav-links a { 
+     display: flex !important; 
+     align-items: center !important; 
+     height: 100% !important; 
+     margin: 0 !important; 
+ }
