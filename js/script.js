@@ -406,6 +406,108 @@ document.addEventListener('DOMContentLoaded', function() {
     setTimeout(checkSpotifyIframes, 2000);
     
     // ============================================
+    // BIO GALLERY CAROUSEL
+    // ============================================
+    
+    const galleryTrack = document.querySelector('.bio-gallery-track');
+    const galleryDots = document.querySelector('.gallery-dots');
+    const prevBtn = document.querySelector('.gallery-prev');
+    const nextBtn = document.querySelector('.gallery-next');
+    
+    if (galleryTrack && galleryDots) {
+        const slides = galleryTrack.querySelectorAll('.bio-gallery-slide');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+        let autoPlayInterval;
+        
+        // Create dots
+        slides.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'gallery-dot' + (index === 0 ? ' active' : '');
+            dot.addEventListener('click', () => goToSlide(index));
+            galleryDots.appendChild(dot);
+        });
+        
+        function goToSlide(index) {
+            currentIndex = index;
+            galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+            
+            // Update dots
+            document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentIndex);
+            });
+        }
+        
+        function nextSlide() {
+            goToSlide((currentIndex + 1) % totalSlides);
+        }
+        
+        function prevSlide() {
+            goToSlide((currentIndex - 1 + totalSlides) % totalSlides);
+        }
+        
+        function startAutoPlay() {
+            stopAutoPlay();
+            autoPlayInterval = setInterval(nextSlide, 4000);
+        }
+        
+        function stopAutoPlay() {
+            if (autoPlayInterval) {
+                clearInterval(autoPlayInterval);
+                autoPlayInterval = null;
+            }
+        }
+        
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                startAutoPlay();
+            });
+        }
+        
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                startAutoPlay();
+            });
+        }
+        
+        // Pause on hover
+        const carousel = document.querySelector('.bio-gallery-carousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+        }
+        
+        // Touch swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        if (galleryTrack) {
+            galleryTrack.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoPlay();
+            }, { passive: true });
+            
+            galleryTrack.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+                startAutoPlay();
+            }, { passive: true });
+        }
+        
+        // Start autoplay
+        startAutoPlay();
+    }
+    
+    // ============================================
     // CONSOLE GREETING
     // ============================================
     
