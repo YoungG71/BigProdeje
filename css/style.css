@@ -3461,8 +3461,30 @@ header, .navbar {
          margin-top: 55px !important; 
      } 
      
-     .navbar .nav-links.active, header .nav-links.active { 
-         top: 55px !important; 
+     /* Le menu déroulant avec un vrai fond opaque */ 
+     header .nav-links.active, .navbar .nav-links.active { 
+         display: flex !important; 
+         flex-direction: column !important; 
+         justify-content: flex-start !important; 
+         align-items: center !important; 
+         position: absolute !important; 
+         top: 55px !important; /* Se cale juste sous la barre */ 
+         left: 0 !important; 
+         width: 100% !important; 
+         background: #00050b !important; /* Fond noir profond */ 
+         padding: 20px 0 30px 0 !important; 
+         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.9) !important; 
+         z-index: 9999 !important; /* Oblige le menu à rester au-dessus de tout */ 
+         border-bottom: 2px solid rgba(30, 144, 255, 0.3) !important; /* Petite ligne bleue en bas */ 
+     } 
+     
+     /* Espacement parfait pour cliquer avec le doigt sur mobile */ 
+     header .nav-links.active a, .navbar .nav-links.active a { 
+         padding: 15px 0 !important; 
+         width: 100% !important; 
+         text-align: center !important; 
+         font-size: 1.2rem !important; 
+         display: block !important; 
      } 
  } 
  
